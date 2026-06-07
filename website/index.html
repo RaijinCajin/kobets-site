@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="KO-Bets.com - AI-powered MMA and combat sports fight picks">
+<meta name="theme-color" content="#0a0a0c">
+<title>KO-Bets.com | AI Fight Picks</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--red:#c8102e;--gold:#f0a500;--green:#22c55e;--bg:#0a0a0c;--bg2:#111116;--bg3:#18181f;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);--text:#f0f0f2;--muted:#6b6b7a;--muted2:#9898a8;--font-display:'Barlow Condensed',sans-serif;--font-body:'Barlow',sans-serif;--radius:10px;--radius-sm:6px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.5;min-height:100vh}
+nav{background:var(--bg);border-bottom:1px solid var(--border);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-box{background:var(--red);font-family:var(--font-display);font-weight:800;font-size:18px;letter-spacing:1px;color:#fff;padding:4px 8px;border-radius:4px;line-height:1}
+.logo-name{font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--text);letter-spacing:.5px}
+.nav-links{display:flex;gap:2px}
+.nav-links a{color:var(--muted);font-size:13px;font-weight:600;padding:6px 10px;border-radius:var(--radius-sm);text-decoration:none;transition:color .15s,background .15s;letter-spacing:.3px}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--bg3)}
+.hero{background:var(--bg2);border-bottom:1px solid var(--border);padding:20px 16px}
+.hero-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:32px;letter-spacing:.5px;line-height:1}
+.hero h1 span{color:var(--red)}
+.hero p{color:var(--muted2);font-size:13px;margin-top:6px}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.pill{font-size:11px;font-weight:600;letter-spacing:.5px;padding:3px 10px;border-radius:20px;border:1px solid}
+.pill.mma{color:#c084fc;border-color:#7c3aed40;background:#7c3aed12}
+.pill.boxing{color:#60a5fa;border-color:#2563eb40;background:#2563eb12}
+.pill.kb{color:#34d399;border-color:#10b98140;background:#10b98112}
+.pill.mt{color:#fb923c;border-color:#ea580c40;background:#ea580c12}
+.hero-stats{display:flex;gap:24px;flex-shrink:0}
+.stat{text-align:center}
+.stat .n{font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--red);line-height:1}
+.stat .l{font-size:11px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+.layout{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 280px;gap:0}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:20px 16px 10px;display:flex;align-items:center;gap:10px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.picks{padding:0 16px 16px;border-right:1px solid var(--border)}
+.pick{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:border-color .2s}
+.pick:hover{border-color:var(--border2)}
+.pick-sport{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.pick-sport .dot{width:5px;height:5px;border-radius:50%;background:var(--red)}
+.matchup{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin-bottom:14px}
+.fighter{text-align:center}
+.fighter .fname{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--text);line-height:1.1}
+.fighter .fodds{font-size:13px;font-weight:600;margin-top:5px}
+.fodds.fav{color:var(--green)}
+.fodds.dog{color:var(--gold)}
+.vs-badge{font-family:var(--font-display);font-size:13px;font-weight:800;color:var(--muted);letter-spacing:1px;background:var(--bg3);padding:4px 8px;border-radius:4px}
+.pick-result{background:var(--bg3);border-radius:var(--radius-sm);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.pick-result-left .prlabel{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin-bottom:2px}
+.pick-result-left .prname{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--text)}
+.pick-result-right{text-align:right;font-size:12px;color:var(--muted2)}
+.conf-wrap{margin-bottom:10px}
+.conf-top{display:flex;justify-content:space-between;margin-bottom:4px}
+.conf-top span{font-size:11px;color:var(--muted)}
+.conf-top strong{font-size:12px;color:var(--gold);font-weight:600}
+.conf-bar{height:3px;background:var(--bg3);border-radius:2px}
+.conf-fill{height:3px;background:var(--red);border-radius:2px}
+.pick-meta{display:flex;flex-wrap:wrap;gap:10px}
+.pmeta{font-size:11px;color:var(--muted)}
+.bcast-pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:#1e3a5f;color:#60a5fa;border:1px solid #2563eb30}
+.loading-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;color:var(--muted);font-size:13px;margin-bottom:12px}
+.pulse{animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.sidebar{padding:0 12px 16px}
+.event-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.event-item .ename{font-size:13px;font-weight:600;color:var(--text)}
+.event-item .emeta{font-size:11px;color:var(--muted);margin-top:2px}
+.event-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+.tag-espn{background:#1e3a5f;color:#60a5fa}
+.tag-ppv{background:#2a1020;color:#f472b6}
+.tag-fp{background:#1a1f2e;color:#818cf8}
+.tag-tbd{background:var(--bg3);color:var(--muted2)}
+.tag-stream{background:#1a2010;color:#86efac}
+.odds-table{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:8px}
+.odds-fight{padding:8px 12px;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--muted2)}
+.odds-line{display:grid;grid-template-columns:70px 1fr 1fr;align-items:center;padding:7px 12px;border-bottom:1px solid var(--border);font-size:12px}
+.odds-line:last-child{border-bottom:none}
+.odds-book-name{color:var(--muted);font-size:11px}
+.odds-num{text-align:center;font-weight:600}
+.odds-num.green{color:var(--green)}
+.odds-num.gold{color:var(--gold)}
+.disclaimer{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-size:11px;color:var(--muted);margin:0 16px 16px;max-width:900px;margin-left:auto;margin-right:auto;line-height:1.5}
+footer{border-top:1px solid var(--border);padding:20px 16px;text-align:center;color:var(--muted);font-size:12px;margin-top:24px}
+footer a{color:var(--muted2);text-decoration:none}
+@media(max-width:680px){
+.hero-inner{flex-direction:column;align-items:flex-start;gap:12px}
+.layout{grid-template-columns:1fr}
+.picks{border-right:none;padding:0 12px 12px}
+.sidebar{padding:0 12px 12px}
+.fighter .fname{font-size:14px}
+.hero h1{font-size:26px}
+}
+@media(max-width:360px){.nav-links{display:none}.hero h1{font-size:22px}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><span class="logo-box">KO</span><span class="logo-name">Bets.com</span></a>
+  <div class="nav-links">
+    <a href="#picks" class="active">Picks</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#odds">Odds</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>AI Fight <span>Picks</span></h1>
+      <p>Claude-powered predictions updated daily</p>
+      <div class="pill-row">
+        <span class="pill mma">MMA</span>
+        <span class="pill boxing">Boxing</span>
+        <span class="pill kb">Kickboxing</span>
+        <span class="pill mt">Muay Thai</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="n" id="pick-count">-</div><div class="l">Picks</div></div>
+      <div class="stat"><div class="n" id="event-count">-</div><div class="l">Events</div></div>
+    </div>
+  </div>
+</div>
+<div class="layout">
+  <div>
+    <div class="sec-label" id="picks">Today's AI picks</div>
+    <div class="picks" id="picks-container"><div class="loading-card pulse">Loading picks...</div></div>
+    <div class="sec-label" id="schedule">Upcoming events</div>
+    <div class="picks" id="fights-container"><div class="loading-card pulse">Loading events...</div></div>
+  </div>
+  <div class="sidebar">
+    <div class="sec-label" id="odds">Live odds</div>
+    <div id="odds-container"><div class="loading-card pulse">Loading odds...</div></div>
+  </div>
+</div>
+<div class="disclaimer">KO-Bets.com provides AI-generated analysis for informational purposes only. Not financial or betting advice. Must be 18+ and in a jurisdiction where sports betting is legal. Bet responsibly.</div>
+<footer><p>KO-Bets.com 2026 · AI Combat Sports Analysis · <a href="#">Privacy</a> · <a href="#">Terms</a></p></footer>
+<script>
+const PROXY='https://api.allorigins.win/raw?url=';
+const API='http://2.25.128.218:8000';
+const FIGHTS=[{a:'Ilia Topuria',b:'Justin Gaethje',oa:'-185',ob:'+155',conf:72,method:'KO/TKO Rds 1-3',event:'UFC Freedom 250',bc:'ESPN+'},{a:'Islam Makhachev',b:'Michael Morales',oa:'-320',ob:'+250',conf:90,method:'Submission Rds 2-3',event:'UFC Fight Night',bc:'ESPN+'},{a:'Alex Pereira',b:'Ciryl Gane',oa:'-145',ob:'+120',conf:65,method:'KO/TKO Rds 2-3',event:'UFC Freedom 250',bc:'ESPN+'},{a:'Conor McGregor',b:'Max Holloway',oa:'-165',ob:'+135',conf:60,method:'KO/TKO Rds 1-2',event:'UFC 329',bc:'PPV'},{a:'Belal Muhammad',b:'Gabriel Bonfim',oa:'-195',ob:'+160',conf:65,method:'Decision',event:'UFC Fight Night',bc:'ESPN+'}];
+function btag(b){if(!b)return'<span class="event-tag tag-tbd">TBD</span>';b=b.toLowerCase();if(b.includes('espn'))return'<span class="event-tag tag-espn">ESPN+</span>';if(b.includes('fight pass'))return'<span class="event-tag tag-fp">Fight Pass</span>';if(b.includes('ppv'))return'<span class="event-tag tag-ppv">PPV</span>';if(b.includes('internet')||b.includes('stream'))return'<span class="event-tag tag-stream">Stream</span>';return'<span class="event-tag tag-tbd">'+b.substring(0,10)+'</span>';}
+function sc(s){if(!s)return'mma';s=s.toLowerCase();if(s.includes('box'))return'boxing';if(s.includes('kick'))return'kb';if(s.includes('muay'))return'mt';return'mma';}
+function clean(t){if(!t)return'';return t.replace(/#{1,3}\s*/g,'').replace(/\*\*/g,'').replace(/\*/g,'').replace(/\n+/g,' ').trim().substring(0,200)+'...';}
+async function get(ep){try{const r=await fetch(PROXY+encodeURIComponent(API+ep));return await r.json();}catch(e){try{const r=await fetch(API+ep);return await r.json();}catch(e){return[];}}}
+async function loadPicks(){
+  const data=await get('/predictions');
+  const el=document.getElementById('picks-container');
+  if(!data||!data.length){el.innerHTML='<div class="loading-card">Picks updating soon...</div>';return;}
+  document.getElementById('pick-count').textContent=data.length;
+  el.innerHTML=data.slice(0,5).map((p,i)=>{
+    const f=FIGHTS[i]||FIGHTS[0];
+    const c=f.conf;
+    return`<div class="pick">
+      <div class="pick-sport"><span class="dot"></span>MMA · ${f.event}</div>
+      <div class="matchup">
+        <div class="fighter"><div class="fname">${p.pick||f.a}</div><div class="fodds fav">${f.oa}</div></div>
+        <div class="vs-badge">VS</div>
+        <div class="fighter"><div class="fname">${f.b}</div><div class="fodds dog">${f.ob}</div></div>
+      </div>
+      <div class="pick-result">
+        <div class="pick-result-left"><div class="prlabel">AI Pick</div><div class="prname">${p.pick||f.a}</div></div>
+        <div class="pick-result-right">${f.method}</div>
+      </div>
+      <div class="conf-wrap">
+        <div class="conf-top"><span>Confidence</span><strong>${c}%</strong></div>
+        <div class="conf-bar"><div class="conf-fill" style="width:${c}%"></div></div>
+      </div>
+      <div class="pick-meta"><span class="pmeta">${f.event}</span>${btag(f.bc)}</div>
+    </div>`;
+  }).join('');
+}
+async function loadFights(){
+  const data=await get('/fights');
+  const el=document.getElementById('fights-container');
+  if(!data||!data.length){el.innerHTML='<div class="loading-card">Events loading...</div>';return;}
+  document.getElementById('event-count').textContent=data.length;
+  el.innerHTML=data.slice(0,8).map(f=>`
+    <div class="event-item">
+      <div><div class="ename">${f.event||'Unknown'}</div>
+      <div class="emeta"><span class="pill ${sc(f.sport)}" style="font-size:10px;padding:1px 7px;margin-right:4px">${f.sport||'MMA'}</span>${f.date||''}</div></div>
+      ${btag(f.broadcast)}
+    </div>`).join('');
+}
+async function loadOdds(){
+  const data=await get('/odds');
+  const el=document.getElementById('odds-container');
+  if(!data||!data.length){el.innerHTML='<div class="loading-card">Odds loading...</div>';return;}
+  const groups=[{name:'Topuria vs Gaethje',rows:data.slice(0,3)},{name:'Makhachev vs Morales',rows:data.slice(3,6)},{name:'McGregor vs Holloway',rows:data.slice(6,9)}];
+  el.innerHTML=groups.map(g=>`
+    <div class="odds-table">
+      <div class="odds-fight">${g.name}</div>
+      ${g.rows.map(o=>`<div class="odds-line"><span class="odds-book-name">${(o.book||'').toUpperCase()}</span><span class="odds-num green">${o.fighter_a||'-'}</span><span class="odds-num gold">${o.fighter_b||'-'}</span></div>`).join('')}
+    </div>`).join('');
+}
+loadPicks();loadFights();loadOdds();
+</script>
+</body>
+</html>

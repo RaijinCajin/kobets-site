@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KO-Bets.com - AI Fight Picks</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:'Segoe UI',sans-serif}
+header{background:#111;padding:20px;text-align:center;border-bottom:2px solid #e63946}
+header h1{font-size:2.5rem;color:#e63946}
+header p{color:#aaa;margin-top:5px}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.section{margin:30px 0}
+h2{color:#e63946;font-size:1.4rem;margin-bottom:15px;border-left:4px solid #e63946;padding-left:10px}
+.card{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:20px;margin:10px 0}
+.card h3{color:#fff;font-size:1.1rem;margin-bottom:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:bold;margin:3px}
+.mma{background:#e63946;color:#fff}
+.boxing{background:#457b9d;color:#fff}
+.kickboxing{background:#2a9d8f;color:#fff}
+.muaythai{background:#f08080;color:#fff}
+.combatsports{background:#6a0dad;color:#fff}
+.mma-kickboxing{background:#e63946;color:#fff}
+.broadcast{color:#aaa;font-size:0.85rem;margin-top:5px}
+.pick{color:#f4d03f;font-weight:bold;font-size:1rem}
+.analysis{color:#ccc;font-size:0.85rem;margin-top:8px;line-height:1.5}
+.loading{color:#aaa;text-align:center;padding:40px}
+footer{text-align:center;padding:30px;color:#555;border-top:1px solid #222;margin-top:40px}
+</style>
+</head>
+<body>
+<header>
+<h1>🥊 KO-BETS.COM</h1>
+<p>AI-Powered MMA and Combat Sports Picks</p>
+</header>
+<div class="container">
+<div class="section">
+<h2>🤖 AI Fight Predictions</h2>
+<div id="predictions"><div class="loading">Loading picks...</div></div>
+</div>
+<div class="section">
+<h2>📅 Upcoming Events</h2>
+<div id="fights"><div class="loading">Loading events...</div></div>
+</div>
+</div>
+<footer><p>KO-Bets.com — AI Combat Sports Analysis | Bet Responsibly 18+</p></footer>
+<script>
+const API='http://2.25.128.218:8000';
+async function load(url,id,fn){
+  try{const r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));const d=await r.json();console.log(`Data for ${id}:`, d);document.getElementById(id).innerHTML=fn(d);}
+  catch(e){console.error(`Error loading ${id}:`, e);document.getElementById(id).innerHTML='<div class="card">Updating soon...</div>';}
+}
+load(API+'/predictions','predictions',d=>d.slice(0,5).map(p=>`
+<div class="card"><div class="pick">🏆 ${p.pick}</div>
+<div class="analysis">${p.analysis.substring(0,300)}...</div></div>`).join(''));
+load(API+'/fights','fights',d=>d.slice(0,8).map(f=>`
+<div class="card"><h3>${f.event}</h3>
+<span class="badge ${f.sport.toLowerCase().replace(/ & /g, '-').replace(/ /g, '')}">${f.sport}</span>
+<div class="broadcast">📺 ${f.broadcast} | 🗓 ${f.date}</div></div>`).join(''));
+</script>
+</body>
+</html>
