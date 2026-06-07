@@ -138,13 +138,13 @@ footer a{color:var(--muted2);text-decoration:none}
 <div class="disclaimer">KO-Bets.com provides AI-generated analysis for informational purposes only. Not financial or betting advice. Must be 18+ and in a jurisdiction where sports betting is legal. Bet responsibly.</div>
 <footer><p>KO-Bets.com 2026 · AI Combat Sports Analysis · <a href="#">Privacy</a> · <a href="#">Terms</a></p></footer>
 <script>
-const PROXY='https://api.allorigins.win/raw?url=';
-const API='http://2.25.128.218:8000';
+
+const API='https://api.ko-bets.com';
 const FIGHTS=[{a:'Ilia Topuria',b:'Justin Gaethje',oa:'-185',ob:'+155',conf:72,method:'KO/TKO Rds 1-3',event:'UFC Freedom 250',bc:'ESPN+'},{a:'Islam Makhachev',b:'Michael Morales',oa:'-320',ob:'+250',conf:90,method:'Submission Rds 2-3',event:'UFC Fight Night',bc:'ESPN+'},{a:'Alex Pereira',b:'Ciryl Gane',oa:'-145',ob:'+120',conf:65,method:'KO/TKO Rds 2-3',event:'UFC Freedom 250',bc:'ESPN+'},{a:'Conor McGregor',b:'Max Holloway',oa:'-165',ob:'+135',conf:60,method:'KO/TKO Rds 1-2',event:'UFC 329',bc:'PPV'},{a:'Belal Muhammad',b:'Gabriel Bonfim',oa:'-195',ob:'+160',conf:65,method:'Decision',event:'UFC Fight Night',bc:'ESPN+'}];
 function btag(b){if(!b)return'<span class="event-tag tag-tbd">TBD</span>';b=b.toLowerCase();if(b.includes('espn'))return'<span class="event-tag tag-espn">ESPN+</span>';if(b.includes('fight pass'))return'<span class="event-tag tag-fp">Fight Pass</span>';if(b.includes('ppv'))return'<span class="event-tag tag-ppv">PPV</span>';if(b.includes('internet')||b.includes('stream'))return'<span class="event-tag tag-stream">Stream</span>';return'<span class="event-tag tag-tbd">'+b.substring(0,10)+'</span>';}
 function sc(s){if(!s)return'mma';s=s.toLowerCase();if(s.includes('box'))return'boxing';if(s.includes('kick'))return'kb';if(s.includes('muay'))return'mt';return'mma';}
 function clean(t){if(!t)return'';return t.replace(/#{1,3}\s*/g,'').replace(/\*\*/g,'').replace(/\*/g,'').replace(/\n+/g,' ').trim().substring(0,200)+'...';}
-async function get(ep){try{const r=await fetch(PROXY+encodeURIComponent(API+ep));return await r.json();}catch(e){try{const r=await fetch(API+ep);return await r.json();}catch(e){return[];}}}
+async function get(ep){try{const r=await fetch(API+ep);return await r.json();}catch(e){try{const r=await fetch(API+ep);return await r.json();}catch(e){return[];}}}
 async function loadPicks(){
   const data=await get('/predictions');
   const el=document.getElementById('picks-container');
