@@ -1,0 +1,26 @@
+name: Deploy mu-plugin to WordPress
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'wordpress-mu-plugins/**'
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: FTP deploy mu-plugins to WordPress
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./wordpress-mu-plugins/
+          server-dir: ./domains/ko-bets.com/public_html/wp-content/mu-plugins/
+          dangerous-clean-slate: false
