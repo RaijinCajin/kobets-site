@@ -1,0 +1,29 @@
+{
+  "site": "ko-bets.com",
+  "wp_url": "https://ko-bets.com",
+  "rest_base": "https://ko-bets.com/wp-json/wp/v2/",
+  "stats_endpoint": "https://ko-bets.com/wp-json/kobets/v1/stats",
+  "category": "Fight Analysis",
+  "model": "claude-haiku-4-5-20251001",
+  "sports": {
+    "primary": ["mma", "boxing"],
+    "expansion": ["GLORY", "ONE Championship", "kickboxing"]
+  },
+  "affiliate_links": {
+    "espn_plus": "REPLACE_WITH_YOUR_ESPN_PLUS_AFFILIATE_LINK",
+    "dazn": "REPLACE_WITH_YOUR_DAZN_AFFILIATE_LINK",
+    "amazon": "REPLACE_WITH_YOUR_AMAZON_AFFILIATE_LINK",
+    "glory": "REPLACE_WITH_YOUR_GLORY_AFFILIATE_LINK",
+    "ufc_fight_pass": "REPLACE_WITH_YOUR_FIGHT_PASS_AFFILIATE_LINK"
+  },
+  "api_bridge": {
+    "base": "https://api.ko-bets.com",
+    "_note": "Set the real route paths below once known. Empty routes are skipped (no-op). WordPress is already populated, so the bridge is optional.",
+    "routes": {
+      "fighters": "",
+      "events": "",
+      "picks": "",
+      "results": ""
+    }
+  }
+}
