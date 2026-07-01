@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'wordpress-mu-plugins/**'
+      - 'wordpress-theme/**'
   workflow_dispatch: {}
 
 jobs:
@@ -23,4 +24,15 @@ jobs:
           protocol: ftp
           local-dir: ./wordpress-mu-plugins/
           server-dir: ./domains/ko-bets.com/public_html/wp-content/mu-plugins/
+          dangerous-clean-slate: false
+
+      - name: FTP deploy theme to WordPress
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./wordpress-theme/
+          server-dir: ./domains/ko-bets.com/public_html/wp-content/themes/ko-bets-theme/
           dangerous-clean-slate: false
