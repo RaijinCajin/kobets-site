@@ -382,22 +382,8 @@ add_action( 'wp_footer', function() {
             }
         }
         function fixBadge(b){ var s=getSport(b); if(s) applyBadgeStyle(b,s); }
-        function patchStats(){
-            var t=document.querySelector('.tracker');
-            if(!t) return;
-            t.querySelectorAll('.stat').forEach(function(s){
-                var n=s.querySelector('.num'),l=s.querySelector('.lbl');
-                if(!n||!l) return;
-                var lb=l.textContent.toLowerCase().trim();
-                if(lb==='win rate') n.textContent='71%';
-                if(lb==='record') n.textContent='5\u20132';
-                if(lb==='units') n.textContent='+4.1';
-                if(lb==='roi') n.textContent='+19%';
-            });
-        }
         function fixAll(){
             document.querySelectorAll('.league,.kb-badge').forEach(fixBadge);
-            patchStats();
         }
         var obs=new MutationObserver(function(muts){
             muts.forEach(function(m){
