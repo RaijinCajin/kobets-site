@@ -21,6 +21,22 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  * ------------------------------------------------------------------------- */
 function kobets_setup() {
 	add_theme_support( 'title-tag' );
+
+function kobets_meta_description() {
+if ( is_front_page() ) {
+$desc = get_bloginfo( 'description' );
+} elseif ( is_singular() ) {
+global $post;
+$excerpt = has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_strip_all_tags( $post->post_content );
+$desc = wp_trim_words( $excerpt, 30, '...' );
+} else {
+$desc = get_bloginfo( 'description' );
+}
+if ( $desc ) {
+echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
+}
+}
+add_action( 'wp_head', 'kobets_meta_description', 1 );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'gallery', 'caption', 'style', 'script' ) );
 	register_nav_menus( array(
