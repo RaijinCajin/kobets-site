@@ -139,13 +139,45 @@ def make_preview(wp, dry=False):
 
 
 def pick_next_fighter(wp):
-    for f in wp.fighters():
+    """Prefer fighters referenced in an upcoming (pending) pick's matchup; fall back to any unprofiled fighter."""
+    priority_names = []
+    try:
+        for p in wp.picks() or []:
+            meta = p.get("meta") or {}
+            if (meta.get("kb_status") or "pending").lower() != "pending":
+                continue
+            matchup = meta.get("kb_matchup") or ""
+            for part in re.split(r"\s+vs\.?\s+", matchup, flags=re.I):
+                part = part.strip()
+                if part:
+                    priority_names.append(part.lower())
+    except Exception:
+        priority_names = []
+
+    fighters = list(wp.fighters())
+
+    def _candidate(f):
         name = re.sub(r"<[^>]+>", "", f.get("title", {}).get("rendered", "")).strip()
         if not name:
-            continue
+            return None
         slug = "profile-" + _slugify(f.get("slug") or name)
-        if not wp.find_post_by_slug(slug):
-            return f, slug, name
+        if wp.find_post_by_slug(slug):
+            return None
+        return f, slug, name
+
+    if priority_names:
+        for f in fighters:
+            cand = _candidate(f)
+            if not cand:
+                continue
+            _, _, name = cand
+            if any(name.lower() in pn or pn in name.lower() for pn in priority_names):
+                return cand
+
+    for f in fighters:
+        cand = _candidate(f)
+        if cand:
+            return cand
     return None, None, None
 
 
