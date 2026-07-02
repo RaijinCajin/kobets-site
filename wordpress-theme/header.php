@@ -12,7 +12,7 @@
 <header class="site-header">
 	<div class="wrap">
 		<nav class="nav">
-			<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php echo esc_url( get_template_directory_uri() . '/assets/logo/ko-bets-logo-header.jpg' ); ?>" alt="KO-Bets" style="height:44px;width:auto;display:block;border-radius:4px;"></a>
+			<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="display:flex;align-items:center;gap:10px;"><img src="<?php echo esc_url( get_template_directory_uri() . '/assets/logo/ko-bets-logo-transparent.png' ); ?>" alt="KO-Bets" style="height:72px;width:auto;display:block;">KO<span>-BETS</span></a>
 			<button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 			<?php
 			if ( has_nav_menu( 'primary' ) ) {
