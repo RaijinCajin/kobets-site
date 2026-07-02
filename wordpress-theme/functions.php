@@ -168,9 +168,9 @@ function kobets_get_stats() {
 		if ( $stake <= 0 ) { $stake = 1.0; }
 		$odds   = get_post_meta( $p->ID, 'kb_odds', true );
 
-		if ( $status === 'win' ) {
+		if ( in_array( $status, array( 'win', 'won' ), true ) ) {
 			$wins++;  $units += kobets_unit_profit( $odds ) * $stake; $staked += $stake;
-		} elseif ( $status === 'loss' ) {
+		} elseif ( in_array( $status, array( 'loss', 'lost' ), true ) ) {
 			$losses++; $units -= $stake; $staked += $stake;
 		} elseif ( $status === 'push' ) {
 			$pushes++;
@@ -202,7 +202,7 @@ function kobets_get_units_series() {
 		$stake = (float) get_post_meta( $p->ID, 'kb_units', true );
 		if ( $stake <= 0 ) { $stake = 1.0; }
 		$odds  = get_post_meta( $p->ID, 'kb_odds', true );
-		$running += $status === 'win' ? kobets_unit_profit( $odds ) * $stake : -$stake;
+		$running += in_array( $status, array( 'win', 'won' ), true ) ? kobets_unit_profit( $odds ) * $stake : -$stake;
 		$points[] = array(
 			'label' => get_the_date( 'M j', $p ),
 			'value' => round( $running, 2 ),
